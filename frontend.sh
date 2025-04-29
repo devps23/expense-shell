@@ -1,4 +1,4 @@
-dnf install nginx -y >/tmp/expense.log
+dnf install nginx -y &>/tmp/expense.log
 systemctl enable nginx >/tmp/expense.log
 systemctl start nginx >/tmp/expense.log
 cp expense.conf /etc/nginx/default.d/expense.conf
