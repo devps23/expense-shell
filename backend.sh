@@ -7,11 +7,11 @@ if [ -z ${mysql_root_pwd} ]; then
 fi
 
 print_task_heading "Disable default nodejs"
-dnf module disable nodejs -y $Log
+dnf module disable nodejs -y &>>$Log
 checkStatus $?
 
 print_task_heading "Enable node version 20"
-dnf module enable nodejs:20 -y $Log
+dnf module enable nodejs:20 -y &>>$Log
 checkStatus $?
 
 print_task_heading "Install node js"
