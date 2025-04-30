@@ -18,3 +18,111 @@ so for this we have to use &>>
 
 ex: &>>/tmp/expense.log , displays output from beginning to the end.
 
+[//]: # (Example for multi line comments in the shell)
+<<EOF
+Print
+Variables
+
+- special variables
+- exit status
+  Functions
+  DRY
+  Password not hardcoding
+
+EOF
+
+here <<EOF EOF this is the multi line comment
+
+
+ex:
+===
+x=10
+if [ $x -eq 10 ]; then
+echo $x is greater than 10
+else
+echo $x is less than 10
+
+fi
+
+ex:2
+====
+x=$1
+if [ $x -eq 10 ]; then
+echo $x is greater than 10
+else
+echo $x is less than 10
+
+fi
+
+here $1 means pass value dynamically like bash sample.sh 1
+
+ex:3
+=====
+
+x=$1
+
+if [ $x -eq 10 ]; then
+echo $x is greater than 10
+else
+echo $x is less than 10
+
+fi
+
+here $1 means pass value dynamically , unexpectedly we are not pass any value at that time x value is empty right
+so here check x is empty or value
+
+if [ -z $x ] ; then
+echo Input is missing
+fi
+
+if [ $x -eq 10 ]; then
+echo $x is greater than 10
+else
+echo $x is less than 10
+
+fi
+
+here , if the input is missing shouldn't move to next step, so we have to use exit
+
+if [ -z $x ] ; then
+echo Input is missing
+exit
+fi
+
+if [ $x -eq 10 ]; then
+echo $x is greater than 10
+else
+echo $x is less than 10
+
+fi
+
+here, if the input is missing we have to exit explicitly with value ,exit 0 means by default success, exit 1 so here we
+have to provide exit 1 explictly
+
+
+functions:
+===========
+example(){
+echo "Hello world"
+}
+example // call the function with name
+
+# Functions have its own special variables
+
+example1()
+{
+echo "Value of 1 $1 - $1"
+echo "values of 2 $* - $*"
+echo "values of 3 $# - $#"
+}
+
+$1 ---- first value
+$* ----- all values
+$# -----count number of values
+
+    
+
+
+
+
+
