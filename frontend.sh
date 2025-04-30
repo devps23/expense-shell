@@ -22,6 +22,7 @@ echo "Dowmload frontend app code"
 curl -o /tmp/frontend.zip https://expense-artifacts.s3.amazonaws.com/expense-frontend-v2.zip &>>/tmp/expense.log
 echo $?
 
+
 echo "Move to specific path"
 cd /usr/share/nginx/html &>>/tmp/expense.log
 echo $?

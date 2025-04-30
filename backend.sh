@@ -20,6 +20,10 @@ echo copy backend service to specific path
 cp backend.service /etc/systemd/system/backend.service &>>/tmp/expense.log
 echo $?
 
+echo Remove a directory
+rm -rf /app
+echo $?
+
 echo make a directory with the name app
 mkdir /app &>>/tmp/expense.log
 echo $?
