@@ -1,4 +1,6 @@
 source common.sh
+app_dir=/app
+component=backend
 mysql_root_pwd=$1
 
 if [ -z ${mysql_root_pwd} ]; then
@@ -40,18 +42,9 @@ print_task_heading "Remove a directory"
 rm -rf /app
 checkStatus $?
 
-print_task_heading "make a directory with the name app"
-mkdir /app &>>$Log
-checkStatus $?
 
-print_task_heading "Download backend zip file"
-curl -o /tmp/backend.zip https://expense-artifacts.s3.amazonaws.com/expense-backend-v2.zip  &>>$Log
-checkStatus $?
+app_code
 
-print_task_heading "Extract App content"
-cd /app &>>$Log
-unzip /tmp/backend.zip  &>>$Log
-checkStatus $?
 
 print_task_heading "Install npm dependencies"
 cd /app &>>$Log

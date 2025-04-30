@@ -12,3 +12,18 @@ checkStatus(){
   fi
 
 }
+app_code(){
+
+print_task_heading "make a directory with the name app"
+mkdir ${app_dir} &>>$Log
+checkStatus $?
+
+print_task_heading "Download backend zip file"
+curl -o /tmp/$component.zip https://expense-artifacts.s3.amazonaws.com/expense-$component-v2.zip  &>>$Log
+checkStatus $?
+
+print_task_heading "Extract App content"
+cd ${app_dir} &>>$Log
+unzip /tmp/$component.zip  &>>$Log
+checkStatus $?
+}

@@ -1,4 +1,6 @@
 source common.sh
+app_dir=/usr/share/nginx/html
+component=frontend
 
 print_task_heading "Install nginx"
 dnf install nginx -y &>>Log
@@ -20,17 +22,7 @@ print_task_heading "Remove default content"
 rm -rf /usr/share/nginx/html/* &>>Log
 checkStatus $?
 
-print_task_heading "Dowmload frontend app code"
-curl -o /tmp/frontend.zip https://expense-artifacts.s3.amazonaws.com/expense-frontend-v2.zip &>>Log
-checkStatus $?
-
-print_task_heading "Move to specific path"
-cd /usr/share/nginx/html &>>Log
-checkStatus $?
-
-print_task_heading "Unzip frontend code in specific path"
-unzip /tmp/frontend.zip &>>Log
-checkStatus $?
+app_code
 
 print_task_heading "Restart nginx"
 systemctl restart nginx &>>Log
