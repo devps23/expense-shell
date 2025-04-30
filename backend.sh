@@ -50,23 +50,23 @@ checkStatus $?
 
 print_task_heading "Load the backend service"
 systemctl daemon-reload  &>>/tmp/expense.log
-echo $?
+checkStatus $?
 
 print_task_heading "Enable backend service"
 systemctl enable backend  &>>/tmp/expense.log
-echo $?
+checkStatus $?
 
 print_task_heading "Start backend service"
 systemctl start backend  &>>/tmp/expense.log
-echo $?
+checkStatus $?
 
 print_task_heading "Install mysqlclient to load schema into mysql-server"
 dnf install mysql -y  &>>/tmp/expense.log
-echo $?
+checkStatus $?
 
 print_task_heading "To Load backend schema to mysql-server"
 mysql -h 172.31.28.220 -uroot -p${mysql_root_pwd} < /app/schema/backend.sql  &>>/tmp/expense.log
-echo $?
+checkStatus $?
 
 
 # 1>/tmp/expense.log  ---->redirect output into a file
