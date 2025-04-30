@@ -21,7 +21,7 @@ checkStatus $?
 print_task_heading "create a new user expense"
 id expense
 if id "expense"; then
-  echo "user not exists"
+  echo "user exists" &>/dev/null
   useradd expense &>>/tmp/expense.log
 fi
 checkStatus $?
