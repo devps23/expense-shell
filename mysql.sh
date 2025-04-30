@@ -1,5 +1,19 @@
+source common.sh
+mysql_root_user=$1
+mysql_root_password=$2
 
-dnf install mysql-server -y   &>>/tmp/expense.log
-systemctl enable mysqld    &>>/tmp/expense.log
-systemctl start mysqld     &>>/tmp/expense.log
-mysql_secure_installation --set-root-pass ExpenseApp@1    &>>/tmp/expense.log
+print_task_heading "Install mysql-server"
+dnf install mysql-server -y  &>>/tmp/expense.log
+echo $?
+
+print_task_heading "Enable mysqld"
+systemctl enable mysqld  &>>/tmp/expense.log
+echo $?
+
+print_task_heading "Start mysqld"
+systemctl start mysqld  &>>/tmp/expense.log
+echo $?
+
+print_task_heading "set username and password"
+mysql_secure_installation --set-${mysql_root_user}-pass ${mysql_root_password} &>>/tmp/expense.log
+echo $?

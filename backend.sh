@@ -1,3 +1,4 @@
+source common.sh
 mysql_root_pwd=$1
 
 if [ -z ${mysql_root_pwd} ]; then
@@ -5,51 +6,47 @@ if [ -z ${mysql_root_pwd} ]; then
   exit 1
 fi
 
-print_task_heading(){
-  echo $1
-  echo "**************** $1 ******************" &>>/tmp/expense.log
-}
 print_task_heading "Disable default nodejs"
 dnf module disable nodejs -y &>>/tmp/expense.log
-echo $?
+checkStatus $?
 
 print_task_heading "Enable node version 20"
 dnf module enable nodejs:20 -y &>>/tmp/expense.log
-echo $?
+checkStatus $?
 
 print_task_heading "Install node js"
 dnf install nodejs -y &>>/tmp/expense.log
-echo $?
+checkStatus $?
 
 print_task_heading "create a new user expense"
 useradd expense &>>/tmp/expense.log
-echo $?
+checkStatus $?
 
 print_task_heading "copy backend service to specific path"
 cp backend.service /etc/systemd/system/backend.service &>>/tmp/expense.log
-echo $?
+checkStatus $?
 
 print_task_heading "Remove a directory"
 rm -rf /app
-echo $?
+checkStatus $?
 
 print_task_heading "make a directory with the name app"
 mkdir /app &>>/tmp/expense.log
-echo $?
+checkStatus $?
 
 print_task_heading "Download backend zip file"
 curl -o /tmp/backend.zip https://expense-artifacts.s3.amazonaws.com/expense-backend-v2.zip  &>>/tmp/expense.log
-echo $?
+checkStatus $?
 
 print_task_heading "Extract App content"
 cd /app  &>>/tmp/expense.log
 unzip /tmp/backend.zip  &>>/tmp/expense.log
-echo $?
+checkStatus $?
 
 print_task_heading "Install npm dependencies"
 cd /app &>>/tmp/expense.log
 npm install &>>/tmp/expense.log
-echo $?
+checkStatus $?
 
 print_task_heading "Load the backend service"
 systemctl daemon-reload  &>>/tmp/expense.log
@@ -81,3 +78,4 @@ echo $?
 # echo is a command which is used to display data/output/heading
 # echo $? is status whether action can be performed or not
 # echo $? if 0 success other than 0 failure
+#DRY ---- code should not repeated
