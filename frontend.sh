@@ -19,7 +19,7 @@ cp expense.conf /etc/nginx/default.d/expense.conf &>>Log
 checkStatus $?
 
 print_task_heading "clean the code"
-rm -rf /usr/share/nginx/html/* &>>Log
+rm -rf /usr/share/nginx/html &>>Log
 checkStatus $?
 
 app_code
