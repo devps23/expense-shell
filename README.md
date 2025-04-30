@@ -120,6 +120,32 @@ $1 ---- first value
 $* ----- all values
 $# -----count number of values
 
+
+Colors:
+=======
+Color Printing
+
+Colors
+Red -- 31
+Green -- 32
+Yellow -- 33
+Blue -- 34
+Magenta -- 35
+Cyan -- 36
+
+Syntax: echo -e "\e[COLmMESSAGE]\e[0m"
+here -e enable
+\e[COLm - start color
+MESSAGE - Message to be printed to the color
+\e[0m - disable the color
+
+echo -e "\e[31m This is RedColor\e[0m"
+echo -e "\e[32m This is Green color\e[0m"
+echo -e "\e[33m This is Yellow color\e[0m"
+echo -e "\e[33m This is Blue color\e[0m"
+echo -e "\e[34m This is Magenta color\e[0m"
+echo -e "\e[35m This is Cyan color\e[0m"
+
     
 
 
