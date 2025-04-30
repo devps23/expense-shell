@@ -13,61 +13,61 @@ print_task_heading "Disable default nodejs"
 dnf module disable nodejs -y &>>/tmp/expense.log
 echo $?
 
-echo Enable node version 20
+print_task_heading "Enable node version 20"
 dnf module enable nodejs:20 -y &>>/tmp/expense.log
 echo $?
 
-echo Install node js
+print_task_heading "Install node js"
 dnf install nodejs -y &>>/tmp/expense.log
 echo $?
 
-echo create a new user expense
+print_task_heading "create a new user expense"
 useradd expense &>>/tmp/expense.log
 echo $?
 
-echo copy backend service to specific path
+print_task_heading "copy backend service to specific path"
 cp backend.service /etc/systemd/system/backend.service &>>/tmp/expense.log
 echo $?
 
-echo Remove a directory
+print_task_heading "Remove a directory"
 rm -rf /app
 echo $?
 
-echo make a directory with the name app
+print_task_heading "make a directory with the name app"
 mkdir /app &>>/tmp/expense.log
 echo $?
 
-echo Download backend zip file
+print_task_heading "Download backend zip file"
 curl -o /tmp/backend.zip https://expense-artifacts.s3.amazonaws.com/expense-backend-v2.zip  &>>/tmp/expense.log
 echo $?
 
-echo Extract App content
+print_task_heading "Extract App content"
 cd /app  &>>/tmp/expense.log
 unzip /tmp/backend.zip  &>>/tmp/expense.log
 echo $?
 
-echo Install npm dependencies
+print_task_heading "Install npm dependencies"
 cd /app &>>/tmp/expense.log
 npm install &>>/tmp/expense.log
 echo $?
 
-echo Load the backend service
+print_task_heading "Load the backend service"
 systemctl daemon-reload  &>>/tmp/expense.log
 echo $?
 
-echo Enable backend service
+print_task_heading "Enable backend service"
 systemctl enable backend  &>>/tmp/expense.log
 echo $?
 
-echo Start backend service
+print_task_heading "Start backend service"
 systemctl start backend  &>>/tmp/expense.log
 echo $?
 
-echo Install mysqlclient to load schema into mysql-server
-dnf install mysql -y     &>>/tmp/expense.log
+print_task_heading "Install mysqlclient to load schema into mysql-server"
+dnf install mysql -y  &>>/tmp/expense.log
 echo $?
 
-echo To Load backend schema to mysql-server
+print_task_heading "To Load backend schema to mysql-server"
 mysql -h 172.31.28.220 -uroot -p${mysql_root_pwd} < /app/schema/backend.sql  &>>/tmp/expense.log
 echo $?
 
