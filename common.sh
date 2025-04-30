@@ -15,7 +15,7 @@ checkStatus(){
 app_code(){
 
 print_task_heading "Make a directory"
-mkdir ${app_dir} &>>$Log
+mkdir $app_dir &>>$Log
 checkStatus $?
 
 print_task_heading "Download app code"
@@ -23,7 +23,7 @@ curl -o /tmp/$component.zip https://expense-artifacts.s3.amazonaws.com/expense-$
 checkStatus $?
 
 print_task_heading "Extract App content"
-cd ${app_dir} &>>$Log
+cd $app_dir &>>$Log
 unzip /tmp/$component.zip  &>>$Log
 checkStatus $?
 }
