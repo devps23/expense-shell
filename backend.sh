@@ -15,19 +15,25 @@ dnf module enable nodejs:20 -y &>>$Log
 checkStatus $?
 
 print_task_heading "Install node js"
-dnf install nodejs -y &>>/tmp/expense.log
+dnf install nodejs -y &>>$Log
 checkStatus $?
 
 print_task_heading "create a new user expense"
-if id "expense" &>/dev/null; then
-  echo "user exists"
-else
-  useradd expense $Log
+#if id "expense" &>/dev/null; then
+#  echo "user exists"
+#else
+#  useradd expense $Log
+#fi
+id expense
+if [ $? -ne 0 ]; then
+   echo "user not exists"
+   useradd expense &>>$Log
+   exit 1
 fi
 checkStatus $?
 
 print_task_heading "copy backend service to specific path"
-cp backend.service /etc/systemd/system/backend.service &>>/tmp/expense.log
+cp backend.service /etc/systemd/system/backend.service &>>$Log
 checkStatus $?
 
 print_task_heading "Remove a directory"
@@ -35,41 +41,41 @@ rm -rf /app
 checkStatus $?
 
 print_task_heading "make a directory with the name app"
-mkdir /app &>>/tmp/expense.log
+mkdir /app &>>$Log
 checkStatus $?
 
 print_task_heading "Download backend zip file"
-curl -o /tmp/backend.zip https://expense-artifacts.s3.amazonaws.com/expense-backend-v2.zip  &>>/tmp/expense.log
+curl -o /tmp/backend.zip https://expense-artifacts.s3.amazonaws.com/expense-backend-v2.zip  &>>$Log
 checkStatus $?
 
 print_task_heading "Extract App content"
-cd /app  &>>/tmp/expense.log
-unzip /tmp/backend.zip  &>>/tmp/expense.log
+cd /app &>>$Log
+unzip /tmp/backend.zip  &>>$Log
 checkStatus $?
 
 print_task_heading "Install npm dependencies"
-cd /app &>>/tmp/expense.log
-npm install &>>/tmp/expense.log
+cd /app &>>$Log
+npm install &>>$Log
 checkStatus $?
 
 print_task_heading "Load the backend service"
-systemctl daemon-reload  &>>/tmp/expense.log
+systemctl daemon-reload  &>>$Log
 checkStatus $?
 
 print_task_heading "Enable backend service"
-systemctl enable backend  &>>/tmp/expense.log
+systemctl enable backend  &>>$Log
 checkStatus $?
 
 print_task_heading "Start backend service"
-systemctl start backend  &>>/tmp/expense.log
+systemctl start backend  &>>$Log
 checkStatus $?
 
 print_task_heading "Install mysqlclient to load schema into mysql-server"
-dnf install mysql -y  &>>/tmp/expense.log
+dnf install mysql -y  &>>$Log
 checkStatus $?
 
 print_task_heading "To Load backend schema to mysql-server"
-mysql -h 172.31.28.220 -uroot -p${mysql_root_pwd} < /app/schema/backend.sql  &>>/tmp/expense.log
+mysql -h 172.31.28.220 -uroot -p${mysql_root_pwd} < /app/schema/backend.sql  &>>$Log
 checkStatus $?
 
 
