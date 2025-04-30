@@ -1,3 +1,4 @@
+
 dnf install mysql-server -y   &>>/tmp/expense.log
 systemctl enable mysqld    &>>/tmp/expense.log
 systemctl start mysqld     &>>/tmp/expense.log

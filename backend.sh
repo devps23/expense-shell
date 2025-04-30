@@ -1,6 +1,14 @@
 mysql_root_pwd=$1
 
-echo Disable default nodejs
+if [ -z ${mysql_root_pwd} ]; then
+  echo "Mysql root password is missing"
+  exit 1
+fi
+
+print_task_heading(){
+  echo $1
+}
+print_task_heading "Disable default nodejs"
 dnf module disable nodejs -y &>>/tmp/expense.log
 echo $?
 
