@@ -38,13 +38,7 @@ print_task_heading "copy backend service to specific path"
 cp backend.service /etc/systemd/system/backend.service &>>$Log
 checkStatus $?
 
-print_task_heading "Remove a directory"
-rm -rf /app
-checkStatus $?
-
-
 app_code
-
 
 print_task_heading "Install npm dependencies"
 cd /app &>>$Log

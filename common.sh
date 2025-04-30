@@ -14,6 +14,10 @@ checkStatus(){
 }
 app_code(){
 
+print_task_heading "clean the code"
+rm -rf ${app_dir} &>>Log
+checkStatus $?
+
 print_task_heading "Make a directory"
 mkdir $app_dir &>>$Log
 checkStatus $?
