@@ -30,9 +30,6 @@ echo $?
 
 echo "Move to app directory"
 cd /app  &>>/tmp/expense.log
-echo $?
-
-echo "unzip backend zip file"
 unzip /tmp/backend.zip  &>>/tmp/expense.log
 echo $?
 
