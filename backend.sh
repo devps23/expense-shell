@@ -7,11 +7,11 @@ if [ -z ${mysql_root_pwd} ]; then
 fi
 
 print_task_heading "Disable default nodejs"
-dnf module disable nodejs -y &>>/tmp/expense.log
+dnf module disable nodejs -y $Log
 checkStatus $?
 
 print_task_heading "Enable node version 20"
-dnf module enable nodejs:20 -y &>>/tmp/expense.log
+dnf module enable nodejs:20 -y $Log
 checkStatus $?
 
 print_task_heading "Install node js"
@@ -19,10 +19,10 @@ dnf install nodejs -y &>>/tmp/expense.log
 checkStatus $?
 
 print_task_heading "create a new user expense"
-id expense
-if id "expense"; then
-  echo "user exists" &>/dev/null
-  useradd expense &>>/tmp/expense.log
+if id "expense" &>/dev/null; then
+  echo "user exists"
+else
+  useradd expense $Log
 fi
 checkStatus $?
 
