@@ -19,7 +19,11 @@ dnf install nodejs -y &>>/tmp/expense.log
 checkStatus $?
 
 print_task_heading "create a new user expense"
-useradd expense &>>/tmp/expense.log
+id expense
+if id "expense"; then
+  echo "user not exists"
+  useradd expense &>>/tmp/expense.log
+fi
 checkStatus $?
 
 print_task_heading "copy backend service to specific path"
